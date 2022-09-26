@@ -1,4 +1,7 @@
 {
+  "name": "51-migrants-story",
+  "author": "Lachlan Campbell (https://lachlanjc.com)",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -6,9 +9,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "framer-motion": "^7.3.6",
+    "mapbox-gl": "^2.10.0",
     "next": "latest",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-bootstrap-icons": "^1.8.4",
+    "react-dom": "18.1.0",
+    "react-map-gl": "^7.0.19",
+    "recharts": "^2.1.14"
   },
   "devDependencies": {
     "@types/node": "17.0.35",
