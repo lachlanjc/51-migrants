@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 
 import Progress from '../components/progress'
 import Travelers from '../components/travelers'
@@ -11,7 +10,6 @@ const Home: NextPage = () => {
     <div className="flex min-h-screen flex-col items-center justify-center snap-y snap-mandatory dark:bg-black dark:text-white">
       <Head>
         <title>51 Migrants</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Progress />
 

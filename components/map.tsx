@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { useRef, useCallback, useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Map, { MapRef, Marker, MarkerProps } from 'react-map-gl'
-import { useInView } from 'framer-motion'
 
 const MAPBOX_TOKEN =
   'pk.eyJ1IjoiaGFja2NsdWIiLCJhIjoiY2pscGI1eGdhMGRyNzN3bnZvbGY5NDBvZSJ9.Zm4Zduj94TrgU8h890M7gA'
@@ -33,9 +32,7 @@ const initialViewState = {
 }
 
 export default function AnimatedMap() {
-  const viewRef = useRef()
-  const mapRef = useRef<MapRef>()
-  const isInView = useInView(viewRef, { once: true })
+  const mapRef = useRef<MapRef | null>(null)
 
   const [headline, setHeadline] = useState(
     'We know the path of the truck, but not where the migrants got onboard.'
@@ -43,7 +40,6 @@ export default function AnimatedMap() {
   const [activeMarkers, setActiveMarkers] = useState<typeof markers>([])
 
   useEffect(() => {
-    // if (!isInView) return
     const delay0 = setTimeout(() => {
       setActiveMarkers([markers[0]])
       setHeadline(
@@ -76,15 +72,19 @@ export default function AnimatedMap() {
         center: [longitude, latitude],
         zoom: 6,
         duration: 2000,
+        pitch: 28,
       })
     }, 15000)
     const delay3 = setTimeout(() => {
-      setHeadline('The location, tucked off a highway outside the city, was known for migrant drop-offs.')
+      setHeadline(
+        'The location, off a highway outside the city, was known for migrant drop-offs.'
+      )
       const { longitude, latitude } = markers[2]
       mapRef.current?.flyTo({
         center: [longitude, latitude],
         zoom: 14.25,
         duration: 3000,
+        pitch: 45,
       })
     }, 20000)
     return () => {
@@ -93,11 +93,10 @@ export default function AnimatedMap() {
       clearTimeout(delay2)
       clearTimeout(delay3)
     }
-  }, [isInView])
+  }, [])
 
   return (
     <>
-      <div ref={viewRef} />
       <style>{`.mapboxgl-canvas, .mapboxgl-marker { position: absolute !important; }`}</style>
       <Map
         ref={mapRef}
