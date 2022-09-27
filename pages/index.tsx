@@ -45,7 +45,7 @@ const Home: NextPage = () => {
           </p>
           <a
             className="hover:underline text-blue-500"
-            href="https://github.com/lachlanjc/migrant-deaths-story"
+            href="https://github.com/lachlanjc/51-migrants"
           >
             Open source on GitHub
           </a>
