@@ -70,21 +70,21 @@ function Travelers() {
       <div className="grid md:grid-cols-2 mx-auto gap-12 mt-12">
         <div className="px-14 py-12 bg-white dark:bg-zinc-800 shadow-xl rounded-xl w-80 h-80 text-center flex flex-col items-center justify-between">
           <p className="text-zinc-600 dark:text-zinc-300 text-sm mb-4">
-            <strong className="text-cyan-600">39 men</strong>
+            <strong className="text-cyan-500">39 men</strong>
             {' + '}
-            <strong className="text-rose-600">12 women</strong>
+            <strong className="text-amber-500">12 women</strong>
           </p>
           <div className="grid grid-cols-8 gap-3">
             {new Array(39).fill(null as never).map((n, i) => (
               <span
                 key={`m${i}`}
-                className="bg-cyan-600 rounded-full w-4 h-4 dib"
+                className="bg-cyan-500 rounded-full w-4 h-4 dib"
               />
             ))}
             {new Array(12).fill(null as never).map((n, i) => (
               <span
                 key={`f${i}`}
-                className="bg-rose-600 rounded-full w-4 h-4 dib"
+                className="bg-amber-500 rounded-full w-4 h-4 dib"
               />
             ))}
           </div>

@@ -7,12 +7,12 @@ const data: Array<{ name: string; count: number; fill: string }> = [
   {
     name: 'Guatemalan',
     count: 7,
-    fill: 'amber',
+    fill: 'pink',
   },
   {
     name: 'Honduran',
     count: 2,
-    fill: 'rose',
+    fill: 'purple',
   },
 ]
 
@@ -29,7 +29,7 @@ export default function Ethnicities() {
         columnGap: 48,
       }}
     >
-      <div className="bg-green-500 bg-rose-500 bg-amber-500 mt-5 -mt-2 sr-only" />
+      <div className="bg-green-500 bg-pink-500 bg-purple-500 mt-5 -mt-2 sr-only" />
       {data.map((group, i) => (
         <div
           className={`flex flex-col align-center text-center`}
