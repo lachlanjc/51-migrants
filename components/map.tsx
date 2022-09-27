@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useScroll } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import Map, { MapRef, Marker, MarkerProps } from 'react-map-gl'
 
@@ -32,6 +32,9 @@ const initialViewState = {
 }
 
 export default function AnimatedMap() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: scrollRef })
+
   const mapRef = useRef<MapRef | null>(null)
 
   const [headline, setHeadline] = useState(
@@ -40,63 +43,69 @@ export default function AnimatedMap() {
   const [activeMarkers, setActiveMarkers] = useState<typeof markers>([])
 
   useEffect(() => {
-    const delay0 = setTimeout(() => {
-      setActiveMarkers([markers[0]])
-      setHeadline(
-        'Here’s where the truck entered the US. 20K trucks pass through daily.'
-      )
-      const { longitude, latitude } = markers[0]
-      mapRef.current?.flyTo({
-        center: [longitude, latitude],
-        zoom: 6,
-        duration: 2000,
-      })
-    }, 5000)
-    const delay1 = setTimeout(() => {
-      setActiveMarkers([markers[0], markers[1]])
-      setHeadline(
-        'Here’s where the truck smoothly passed a Border Patrol checkpoint.'
-      )
-      const { longitude, latitude } = markers[1]
-      mapRef.current?.flyTo({
-        center: [longitude, latitude],
-        zoom: 7,
-        duration: 2000,
-      })
-    }, 10000)
-    const delay2 = setTimeout(() => {
-      setActiveMarkers(markers)
-      setHeadline('The truck was found hours later in San Antonio.')
-      const { longitude, latitude } = markers[2]
-      mapRef.current?.flyTo({
-        center: [longitude, latitude],
-        zoom: 6,
-        duration: 2000,
-        pitch: 28,
-      })
-    }, 15000)
-    const delay3 = setTimeout(() => {
-      setHeadline(
-        'The location, off a highway outside the city, was known for migrant drop-offs.'
-      )
-      const { longitude, latitude } = markers[2]
-      mapRef.current?.flyTo({
-        center: [longitude, latitude],
-        zoom: 14.25,
-        duration: 3000,
-        pitch: 45,
-      })
-    }, 20000)
-    return () => {
-      clearTimeout(delay0)
-      clearTimeout(delay1)
-      clearTimeout(delay2)
-      clearTimeout(delay3)
-    }
-  }, [])
+    return scrollYProgress.onChange((progress) => {
+      console.log(progress)
+      if (progress > 0 && progress < 0.2) {
+        // Restore initial state on scroll up
+        setActiveMarkers([])
+        setHeadline(
+          'We know the path of the truck, but not where the migrants got onboard.'
+        )
+        const { longitude, latitude, zoom } = initialViewState
+        mapRef.current?.flyTo({
+          center: [longitude, latitude],
+          zoom,
+          duration: 2000,
+        })
+      } else if (progress > 0.2 && progress < 0.4) {
+        setActiveMarkers([markers[0]])
+        setHeadline(
+          'Here’s where the truck entered the US. 20K trucks pass through daily.'
+        )
+        const { longitude, latitude } = markers[0]
+        mapRef.current?.flyTo({
+          center: [longitude, latitude],
+          zoom: 7,
+          duration: 2000,
+        })
+      } else if (progress > 0.4 && progress < 0.6) {
+        setActiveMarkers([markers[0], markers[1]])
+        setHeadline(
+          'Here’s where the truck smoothly passed a Border Patrol checkpoint.'
+        )
+        const { longitude, latitude } = markers[1]
+        mapRef.current?.flyTo({
+          center: [longitude, latitude],
+          zoom: 8,
+          duration: 2000,
+        })
+      } else if (progress > 0.6 && progress < 0.8) {
+        setActiveMarkers(markers)
+        setHeadline('The truck was found hours later in San Antonio.')
+        const { longitude, latitude } = markers[2]
+        mapRef.current?.flyTo({
+          center: [longitude, latitude],
+          zoom: 7,
+          duration: 2000,
+          pitch: 28,
+        })
+      } else if (progress > 0.8 && progress < 1) {
+        setHeadline(
+          'The location, off a highway outside the city, was known for migrant drop-offs.'
+        )
+        const { longitude, latitude } = markers[2]
+        mapRef.current?.flyTo({
+          center: [longitude, latitude],
+          zoom: 14.25,
+          duration: 10000,
+          pitch: 45,
+        })
+      }
+    })
+  }, [scrollYProgress])
 
   return (
-    <>
+    <section ref={scrollRef} style={{ width: '100%', height: '500vh' }}>
       <style>{`.mapboxgl-canvas, .mapboxgl-marker { position: absolute !important; }`}</style>
       <Map
         ref={mapRef}
@@ -104,9 +113,15 @@ export default function AnimatedMap() {
         mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
         mapboxAccessToken={MAPBOX_TOKEN}
         style={{
-          height: '75vh',
+          width: '100%',
+          height: '100vh',
           overflowY: 'hidden',
+          position: 'sticky',
+          top: 0,
+          left: 0,
+          right: 0,
         }}
+        scrollZoom={false}
       >
         {activeMarkers.map((marker, i) => (
           <Marker
@@ -152,6 +167,6 @@ export default function AnimatedMap() {
           {headline}
         </h2>
       </Map>
-    </>
+    </section>
   )
 }

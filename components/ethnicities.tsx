@@ -38,6 +38,7 @@ export default function Ethnicities() {
             gridColumn: i == 1 ? 2 : 1,
             transform: i == 1 ? 'translateY(-50%)' : undefined,
           }}
+          key={group.name}
         >
           <div
             className={`bg-${group.fill}-500 rounded-full flex items-center justify-center text-white font-bold text-4xl`}
@@ -52,8 +53,9 @@ export default function Ethnicities() {
             {group.count}
           </div>
           <span
-            className={`text-sm text-zinc-500 dark:text-zinc-300 ${group.count > 10 ? 'mt-5' : '-mt-2'
-              }`}
+            className={`text-sm text-zinc-500 dark:text-zinc-300 ${
+              group.count > 10 ? 'mt-5' : '-mt-2'
+            }`}
           >
             {group.name}
           </span>

@@ -75,13 +75,13 @@ function Travelers() {
             <strong className="text-rose-600">12 women</strong>
           </p>
           <div className="grid grid-cols-8 gap-3">
-            {new Array(39).fill(null as never).map((i) => (
+            {new Array(39).fill(null as never).map((n, i) => (
               <span
                 key={`m${i}`}
                 className="bg-cyan-600 rounded-full w-4 h-4 dib"
               />
             ))}
-            {new Array(12).fill(null as never).map((i) => (
+            {new Array(12).fill(null as never).map((n, i) => (
               <span
                 key={`f${i}`}
                 className="bg-rose-600 rounded-full w-4 h-4 dib"
