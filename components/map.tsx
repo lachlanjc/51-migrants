@@ -91,7 +91,7 @@ export default function AnimatedMap() {
         })
       } else if (progress > 0.8 && progress < 1) {
         setHeadline(
-          'The location, off a highway outside the city, was known for migrant drop-offs.'
+          'The location, off a highway outside the city, is known for migrant drop-offs.'
         )
         const { longitude, latitude } = markers[2]
         mapRef.current?.flyTo({
@@ -121,7 +121,7 @@ export default function AnimatedMap() {
           left: 0,
           right: 0,
         }}
-        scrollZoom={false}
+        cooperativeGestures
       >
         {activeMarkers.map((marker, i) => (
           <Marker
