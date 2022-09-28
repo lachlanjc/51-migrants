@@ -29,6 +29,22 @@ function Travelers() {
       </h2>
 
       <div className="grid md:grid-cols-2 mx-auto gap-12 mt-10 mb-20">
+        <div className="px-14 py-12 bg-white dark:bg-zinc-800 shadow-xl rounded-xl w-80 h-80 text-center flex flex-col items-center justify-between">
+          <h3
+            className="text-2xl text-zinc-600 dark:text-zinc-300"
+            ref={donutRef}
+          >
+            At least <strong className="text-red-500">51 of 64</strong>{' '}
+            travelers died.
+          </h3>
+          <Donut
+            size={128}
+            className="text-red-500"
+            value={isDonutInView ? 51 / 64 : 0}
+            strokeWidth={3}
+          />
+        </div>
+
         <div className="p-12 bg-white dark:bg-zinc-800 shadow-xl rounded-xl w-80 h-80 text-center flex flex-col items-center justify-between">
           <h3 className="text-2xl text-zinc-600 dark:text-zinc-300">
             Heat was the primary cause of death.
@@ -45,29 +61,6 @@ function Travelers() {
           </a>
         </div>
 
-        <div className="px-14 py-12 bg-white dark:bg-zinc-800 shadow-xl rounded-xl w-80 h-80 text-center flex flex-col items-center justify-between">
-          <h3
-            className="text-2xl text-zinc-600 dark:text-zinc-300"
-            ref={donutRef}
-          >
-            At least <strong className="text-red-500">51 of 64</strong>{' '}
-            travelers died.
-          </h3>
-          <Donut
-            size={128}
-            className="text-red-500"
-            value={isDonutInView ? 51 / 64 : 0}
-            strokeWidth={3}
-          />
-        </div>
-      </div>
-
-      <h2 className="text-3xl font-bold max-w-xl">
-        Each person who died that day planned to be at only the{' '}
-        <span className="text-green-600">start of a new life</span> here.
-      </h2>
-
-      <div className="grid md:grid-cols-2 mx-auto gap-12 mt-12">
         <div className="px-14 py-12 bg-white dark:bg-zinc-800 shadow-xl rounded-xl w-80 h-80 text-center flex flex-col items-center justify-between">
           <p className="text-zinc-600 dark:text-zinc-300 text-sm mb-4">
             <strong className="text-cyan-500">39 men</strong>
@@ -94,6 +87,11 @@ function Travelers() {
           <Ethnicities />
         </div>
       </div>
+
+      <h2 className="text-3xl font-bold max-w-xl">
+        Each person who died that day planned to be at only the{' '}
+        <span className="text-green-600">start of a new life</span> here.
+      </h2>
     </section>
   )
 }
